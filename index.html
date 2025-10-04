@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tekstil Atıkları - Geri Dönüşüm ve Sürdürülebilirlik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .section {
+            margin: 4rem 0;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .card ul {
+            list-style-position: inside;
+            color: #666;
+        }
+
+        .card li {
+            margin: 0.5rem 0;
+        }
+
+        .calculator {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            color: white;
+            margin: 3rem 0;
+        }
+
+        .calculator h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .calc-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin: 1.5rem 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: white;
+            color: #f5576c;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .result {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>♻️ Tekstil Atıkları</h1>
+            <ul>
+                <li><a href="#anasayfa">Ana Sayfa</a></li>
+                <li><a href="#sorun">Sorun</a></li>
+                <li><a href="#cozumler">Çözümler</a></li>
+                <li><a href="#hesapla">Hesapla</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero" id="anasayfa">
+        <h2>Tekstil Atıklarını Geri Dönüştürelim</h2>
+        <p>Sürdürülebilir bir gelecek için birlikte hareket edelim</p>
+    </div>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">92M</div>
+                <p>Ton tekstil atığı yıllık olarak üretiliyor</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">%85</div>
+                <p>Tekstil atıklarının çöplüğe gitme oranı</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.700L</div>
+                <p>Bir pamuklu tişört için gereken su miktarı</p>
+            </div>
+        </div>
+
+        <section class="section" id="sorun">
+            <h2>Tekstil Atıkları Sorunu</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>🌍 Çevre Etkileri</h3>
+                    <ul>
+                        <li>Toprak ve su kirliliği</li>
+                        <li>Karbon emisyonları</li>
+                        <li>Mikroplastik salınımı</li>
+                        <li>Doğal kaynakların tükenmesi</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>📊 İstatistikler</h3>
+                    <ul>
+                        <li>Her saniye 1 kamyon tekstil atığı</li>
+                        <li>%10 küresel karbon emisyonu</li>
+                        <li>%20 endüstriyel su kirliliği</li>
+                        <li>200 yıl çözülme süresi (polyester)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>💡 Farkındalık</h3>
+                    <ul>
+                        <li>Hızlı moda tüketimi artıyor</li>
+                        <li>Giysi kullanım süresi azalıyor</li>
+                        <li>Geri dönüşüm oranı çok düşük</li>
+                        <li>Bilinç eksikliği var</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="cozumler">
+            <h2>Çözüm Yolları</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>♻️ Geri Dönüşüm</h3>
+                    <ul>
+                        <li>Tekstil geri dönüşüm kutularını kullan</li>
+                        <li>Eski kıyafetleri bağışla</li>
+                        <li>Yeniden kullanılabilir ürünleri tercih et</li>
+                        <li>Tamir et, at değil</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🌱 Sürdürülebilir Alışveriş</h3>
+                    <ul>
+                        <li>Organik ve doğal kumaşlar tercih et</li>
+                        <li>Kaliteli ve uzun ömürlü ürünler al</li>
+                        <li>İkinci el alışverişi değerlendir</li>
+                        <li>Yerel üreticileri destekle</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🔄 Yaratıcı Dönüşüm</h3>
+                    <ul>
+                        <li>Eski kıyafetlerden yeni ürünler yap</li>
+                        <li>Kumaş artıklarını değerlendir</li>
+                        <li>DIY projeleri dene</li>
+                        <li>Yenileme ve boyama yap</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="calculator" id="hesapla">
+            <h3>Su Tasarrufu Hesaplayıcı</h3>
+            <div class="calc-form">
+                <div class="form-group">
+                    <label>Kaç adet giysi geri dönüştürdünüz?</label>
+                    <input type="number" id="clothCount" min="0" placeholder="Örn: 5">
+                </div>
+                <button class="btn" onclick="calculate()">Hesapla</button>
+                <div class="result" id="result"></div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Tekstil Atıkları Projesi | Sürdürülebilir bir gelecek için</p>
+    </footer>
+
+    <script>
+        function calculate() {
+            const clothCount = document.getElementById('clothCount').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (clothCount && clothCount > 0) {
+                const waterSaved = clothCount * 2700; // Litre
+                const co2Saved = clothCount * 5.5; // kg
+                
+                resultDiv.innerHTML = `
+                    <strong>Tebrikler! 🎉</strong><br>
+                    ${waterSaved.toLocaleString()} litre su tasarrufu<br>
+                    ${co2Saved.toFixed(1)} kg CO₂ emisyonu azaltımı
+                `;
+                resultDiv.style.display = 'block';
+            } else {
+                resultDiv.innerHTML = 'Lütfen geçerli bir sayı girin';
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
